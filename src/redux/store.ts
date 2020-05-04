@@ -1,10 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
-import { END } from 'redux-saga';
 import { rootReducer } from './root-reducer';
-import { middleware, sagaMiddleware } from './middleware';
-import { rootSaga } from './root-saga';
-
+import { middleware } from './middleware';
 
 export const initializeStore = (preloadedState) => {
   const store = createStore(
@@ -12,11 +9,5 @@ export const initializeStore = (preloadedState) => {
     preloadedState,
     composeWithDevTools(applyMiddleware(...middleware)),
   );
-  const rootSagas = sagaMiddleware.run(rootSaga);
-  // eslint-disable-next-line
-   (store as any).close = () => (store as any).dispatch(END);
-  return {
-    store,
-    rootSagas,
-  };
+  return store;
 };

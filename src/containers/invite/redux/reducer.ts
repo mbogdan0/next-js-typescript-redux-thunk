@@ -1,7 +1,6 @@
 import {
   Invite,
   INVITE_ERROR_FETCHING,
-  INVITE_FETCH_ASYNC,
   INVITE_FILL,
   INVITE_START_FETCHING,
   InvitesActionTypes,
@@ -40,8 +39,6 @@ export const invitesReducer = (state = initialState, action: InvitesActionTypes)
         loading: false,
         error: action.payload,
       };
-    case INVITE_FETCH_ASYNC:
-      return state;
     default:
       // eslint-disable-next-line no-case-declarations,@typescript-eslint/no-unused-vars
       const x: never = action;

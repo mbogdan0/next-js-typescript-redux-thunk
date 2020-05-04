@@ -310,35 +310,35 @@ const Invite = () => {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 16,
+      lineNumber: 18,
       columnNumber: 5
     }
   }, "invite", __jsx("div", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 18,
+      lineNumber: 20,
       columnNumber: 7
     }
   }, __jsx("div", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 19,
+      lineNumber: 21,
       columnNumber: 9
     }
   }, "LOADING: ", JSON.stringify(loading)), __jsx("div", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 20,
+      lineNumber: 22,
       columnNumber: 9
     }
   }, "DATA: ", JSON.stringify(data)), __jsx("div", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 21,
+      lineNumber: 23,
       columnNumber: 9
     }
   }, "ERROR: ", JSON.stringify(error)), __jsx("textarea", {
@@ -346,7 +346,7 @@ const Invite = () => {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 22,
+      lineNumber: 24,
       columnNumber: 9
     }
   }), __jsx("button", {
@@ -355,7 +355,7 @@ const Invite = () => {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 23,
+      lineNumber: 25,
       columnNumber: 9
     }
   }, "Create")));
@@ -440,22 +440,16 @@ __webpack_require__.r(__webpack_exports__);
 /*!************************************************!*\
   !*** ./src/containers/invite/redux/actions.ts ***!
   \************************************************/
-/*! exports provided: inviteFetchAsync, inviteStartFetching, inviteFillFetching, inviteErrorFetching */
+/*! exports provided: inviteStartFetching, inviteFillFetching, inviteErrorFetching */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inviteFetchAsync", function() { return inviteFetchAsync; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inviteStartFetching", function() { return inviteStartFetching; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inviteFillFetching", function() { return inviteFillFetching; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inviteErrorFetching", function() { return inviteErrorFetching; });
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./src/containers/invite/redux/types.ts");
 
-function inviteFetchAsync() {
-  return {
-    type: _types__WEBPACK_IMPORTED_MODULE_0__["INVITE_FETCH_ASYNC"]
-  };
-}
 function inviteStartFetching() {
   return {
     type: _types__WEBPACK_IMPORTED_MODULE_0__["INVITE_START_FETCHING"]
@@ -520,9 +514,6 @@ const invitesReducer = (state = initialState, action) => {
         error: action.payload
       });
 
-    case _types__WEBPACK_IMPORTED_MODULE_0__["INVITE_FETCH_ASYNC"]:
-      return state;
-
     default:
       // eslint-disable-next-line no-case-declarations,@typescript-eslint/no-unused-vars
       const x = action;
@@ -533,11 +524,40 @@ const invitesReducer = (state = initialState, action) => {
 
 /***/ }),
 
+/***/ "./src/containers/invite/redux/thunk-actions.ts":
+/*!******************************************************!*\
+  !*** ./src/containers/invite/redux/thunk-actions.ts ***!
+  \******************************************************/
+/*! exports provided: thunkFetchInvites */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "thunkFetchInvites", function() { return thunkFetchInvites; });
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/containers/invite/redux/actions.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services */ "./src/containers/invite/services/index.ts");
+
+
+const thunkFetchInvites = () => {
+  return async dispatch => {
+    dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_0__["inviteStartFetching"])());
+
+    try {
+      const result = await Object(_services__WEBPACK_IMPORTED_MODULE_1__["fetchAllInvites"])();
+      dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_0__["inviteFillFetching"])(result.payload));
+    } catch (e) {
+      dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_0__["inviteErrorFetching"])(e.toString()));
+    }
+  };
+};
+
+/***/ }),
+
 /***/ "./src/containers/invite/redux/types.ts":
 /*!**********************************************!*\
   !*** ./src/containers/invite/redux/types.ts ***!
   \**********************************************/
-/*! exports provided: INVITE_START_FETCHING, INVITE_FILL, INVITE_ERROR_FETCHING, INVITE_FETCH_ASYNC */
+/*! exports provided: INVITE_START_FETCHING, INVITE_FILL, INVITE_ERROR_FETCHING */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -545,73 +565,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INVITE_START_FETCHING", function() { return INVITE_START_FETCHING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INVITE_FILL", function() { return INVITE_FILL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INVITE_ERROR_FETCHING", function() { return INVITE_ERROR_FETCHING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INVITE_FETCH_ASYNC", function() { return INVITE_FETCH_ASYNC; });
 const INVITE_START_FETCHING = 'INVITE_START_FETCHING';
 const INVITE_FILL = 'INVITE_FILL';
 const INVITE_ERROR_FETCHING = 'INVITE_ERROR_FETCHING';
-const INVITE_FETCH_ASYNC = 'INVITE_FETCH_ASYNC';
-
-/***/ }),
-
-/***/ "./src/containers/invite/saga/index.ts":
-/*!*********************************************!*\
-  !*** ./src/containers/invite/saga/index.ts ***!
-  \*********************************************/
-/*! exports provided: watchInvites */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "watchInvites", function() { return watchInvites; });
-/* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "redux-saga/effects");
-/* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _workers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./workers */ "./src/containers/invite/saga/workers.ts");
-/* harmony import */ var _redux_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/types */ "./src/containers/invite/redux/types.ts");
-
-
-
-
-function* watchFetchInvite() {
-  yield Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__["takeEvery"])(_redux_types__WEBPACK_IMPORTED_MODULE_2__["INVITE_FETCH_ASYNC"], _workers__WEBPACK_IMPORTED_MODULE_1__["fetchAllInvitesSaga"]);
-}
-
-function* watchInvites() {
-  yield Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__["all"])([Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__["call"])(watchFetchInvite)]);
-}
-
-/***/ }),
-
-/***/ "./src/containers/invite/saga/workers.ts":
-/*!***********************************************!*\
-  !*** ./src/containers/invite/saga/workers.ts ***!
-  \***********************************************/
-/*! exports provided: fetchAllInvitesSaga */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAllInvitesSaga", function() { return fetchAllInvitesSaga; });
-/* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "redux-saga/effects");
-/* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _redux_saga_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @redux-saga/core */ "@redux-saga/core");
-/* harmony import */ var _redux_saga_core__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_redux_saga_core__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/actions */ "./src/containers/invite/redux/actions.ts");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services */ "./src/containers/invite/services/index.ts");
-
-
-
-
-function* fetchAllInvitesSaga() {
-  try {
-    yield Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__["put"])(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_2__["inviteStartFetching"])());
-    const result = yield Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__["call"])(_services__WEBPACK_IMPORTED_MODULE_3__["fetchAllInvites"]);
-    yield Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__["put"])(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_2__["inviteFillFetching"])(result));
-  } catch (e) {
-    yield Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__["put"])(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_2__["inviteErrorFetching"])(e.toString()));
-  } finally {
-    yield Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__["put"])(_redux_saga_core__WEBPACK_IMPORTED_MODULE_1__["END"]);
-  }
-}
 
 /***/ }),
 
@@ -662,7 +618,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _containers_invite__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../containers/invite */ "./src/containers/invite/index.ts");
 /* harmony import */ var _redux_with_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../redux/with-redux */ "./src/redux/with-redux.tsx");
-/* harmony import */ var _containers_invite_redux_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/invite/redux/actions */ "./src/containers/invite/redux/actions.ts");
+/* harmony import */ var _containers_invite_redux_thunk_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/invite/redux/thunk-actions */ "./src/containers/invite/redux/thunk-actions.ts");
 var _jsxFileName = "/Users/bogdan/Downloads/next-blogdan/src/pages/index.tsx";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
@@ -696,15 +652,15 @@ const IndexPage = () => {
 };
 
 IndexPage.getInitialProps = async ({
-  reduxStore,
-  runSaga
+  reduxStore
 }) => {
   const {
     dispatch
   } = reduxStore;
-  dispatch(Object(_containers_invite_redux_actions__WEBPACK_IMPORTED_MODULE_3__["inviteFetchAsync"])());
-  await runSaga.toPromise();
-  return {};
+  await dispatch(Object(_containers_invite_redux_thunk_actions__WEBPACK_IMPORTED_MODULE_3__["thunkFetchInvites"])());
+  return {
+    reduxStore
+  };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(_redux_with_redux__WEBPACK_IMPORTED_MODULE_2__["withRedux"])(IndexPage));
@@ -755,27 +711,6 @@ const rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"]
 
 /***/ }),
 
-/***/ "./src/redux/root-saga.ts":
-/*!********************************!*\
-  !*** ./src/redux/root-saga.ts ***!
-  \********************************/
-/*! exports provided: rootSaga */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rootSaga", function() { return rootSaga; });
-/* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-saga/effects */ "redux-saga/effects");
-/* harmony import */ var redux_saga_effects__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _containers_invite_saga__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../containers/invite/saga */ "./src/containers/invite/saga/index.ts");
-
-
-function* rootSaga() {
-  yield Object(redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__["all"])([Object(_containers_invite_saga__WEBPACK_IMPORTED_MODULE_1__["watchInvites"])()]);
-}
-
-/***/ }),
-
 /***/ "./src/redux/store.ts":
 /*!****************************!*\
   !*** ./src/redux/store.ts ***!
@@ -790,27 +725,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(redux__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var redux_devtools_extension_developmentOnly__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-devtools-extension/developmentOnly */ "redux-devtools-extension/developmentOnly");
 /* harmony import */ var redux_devtools_extension_developmentOnly__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(redux_devtools_extension_developmentOnly__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var redux_saga__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux-saga */ "redux-saga");
-/* harmony import */ var redux_saga__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(redux_saga__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _root_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./root-reducer */ "./src/redux/root-reducer.ts");
-/* harmony import */ var _middleware__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./middleware */ "./src/redux/middleware.ts");
-/* harmony import */ var _root_saga__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./root-saga */ "./src/redux/root-saga.ts");
-
-
+/* harmony import */ var _root_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./root-reducer */ "./src/redux/root-reducer.ts");
+/* harmony import */ var _middleware__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./middleware */ "./src/redux/middleware.ts");
 
 
 
 
 const initializeStore = preloadedState => {
-  const store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_root_reducer__WEBPACK_IMPORTED_MODULE_3__["rootReducer"], preloadedState, Object(redux_devtools_extension_developmentOnly__WEBPACK_IMPORTED_MODULE_1__["composeWithDevTools"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(..._middleware__WEBPACK_IMPORTED_MODULE_4__["middleware"])));
-  const rootSagas = _middleware__WEBPACK_IMPORTED_MODULE_4__["sagaMiddleware"].run(_root_saga__WEBPACK_IMPORTED_MODULE_5__["rootSaga"]); // eslint-disable-next-line
-
-  store.close = () => store.dispatch(redux_saga__WEBPACK_IMPORTED_MODULE_2__["END"]);
-
-  return {
-    store,
-    rootSagas
-  };
+  const store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_root_reducer__WEBPACK_IMPORTED_MODULE_2__["rootReducer"], preloadedState, Object(redux_devtools_extension_developmentOnly__WEBPACK_IMPORTED_MODULE_1__["composeWithDevTools"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(..._middleware__WEBPACK_IMPORTED_MODULE_3__["middleware"])));
+  return store;
 };
 
 /***/ }),
@@ -876,7 +799,7 @@ const withRedux = (PageComponent, {
 
     const store = getOrInitializeStore(initialReduxState);
     return __jsx(react_redux__WEBPACK_IMPORTED_MODULE_1__["Provider"], {
-      store: store.store,
+      store: store,
       __self: undefined,
       __source: {
         fileName: _jsxFileName,
@@ -912,11 +835,10 @@ const withRedux = (PageComponent, {
     WithRedux.getInitialProps = async context => {
       const reduxStore = getOrInitializeStore(); // Provide the store to getInitialProps of pages
 
-      context.reduxStore = reduxStore.store;
-      context.runSaga = reduxStore.rootSagas;
+      context.reduxStore = reduxStore;
       const pageProps = typeof PageComponent.getInitialProps === 'function' ? await PageComponent.getInitialProps(context) : {};
       return _objectSpread({}, pageProps, {
-        initialReduxState: reduxStore.store.getState()
+        initialReduxState: reduxStore.getState()
       });
     };
   }
@@ -935,17 +857,6 @@ const withRedux = (PageComponent, {
 
 module.exports = __webpack_require__(/*! /Users/bogdan/Downloads/next-blogdan/src/pages/index.tsx */"./src/pages/index.tsx");
 
-
-/***/ }),
-
-/***/ "@redux-saga/core":
-/*!***********************************!*\
-  !*** external "@redux-saga/core" ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("@redux-saga/core");
 
 /***/ }),
 
@@ -1001,17 +912,6 @@ module.exports = require("redux-devtools-extension/developmentOnly");
 /***/ (function(module, exports) {
 
 module.exports = require("redux-saga");
-
-/***/ }),
-
-/***/ "redux-saga/effects":
-/*!*************************************!*\
-  !*** external "redux-saga/effects" ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("redux-saga/effects");
 
 /***/ }),
 

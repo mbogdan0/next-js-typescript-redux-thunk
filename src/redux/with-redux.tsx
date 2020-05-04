@@ -18,7 +18,7 @@ export const withRedux = (PageComponent, { ssr = true } = {}) => {
   const WithRedux = ({ initialReduxState, ...props }: any) => {
     const store = getOrInitializeStore(initialReduxState);
     return (
-      <Provider store={store.store}>
+      <Provider store={store}>
         <PageComponent {...props} />
       </Provider>
     );
@@ -43,14 +43,13 @@ export const withRedux = (PageComponent, { ssr = true } = {}) => {
       const reduxStore = getOrInitializeStore();
 
       // Provide the store to getInitialProps of pages
-      context.reduxStore = reduxStore.store;
-      context.runSaga = reduxStore.rootSagas;
+      context.reduxStore = reduxStore;
       const pageProps = typeof PageComponent.getInitialProps === 'function'
         ? await PageComponent.getInitialProps(context)
         : {};
       return {
         ...pageProps,
-        initialReduxState: reduxStore.store.getState(),
+        initialReduxState: reduxStore.getState(),
       };
     };
   }

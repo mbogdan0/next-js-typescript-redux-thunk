@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux';
-
+import { combineReducers, Action } from 'redux';
+import { ThunkAction } from 'redux-thunk';
 import { invitesReducer as invites } from '../containers/invite/redux/reducer';
 
 export const rootReducer = combineReducers({
@@ -7,3 +7,10 @@ export const rootReducer = combineReducers({
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  AppState,
+  unknown,
+  Action<string>
+>;

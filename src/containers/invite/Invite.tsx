@@ -1,4 +1,6 @@
-import React, { ChangeEvent, FC, useState, useEffect } from 'react';
+import React, {
+  ChangeEvent, FC, useState, useEffect,
+} from 'react';
 import { useInvite } from './hooks/useInvite';
 
 export const Invite: FC = () => {

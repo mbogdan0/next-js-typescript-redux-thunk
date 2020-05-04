@@ -20,13 +20,8 @@ export type InviteErrorFetchingAction = {
   payload: string;
 };
 
-export const INVITE_FETCH_ASYNC = 'INVITE_FETCH_ASYNC';
-type InviteFetchAsyncAction = {
-  type: typeof INVITE_FETCH_ASYNC;
-};
 
 export type InvitesActionTypes =
   | InviteStartFetchingAction
   | InviteFillAction
-  | InviteErrorFetchingAction
-  | InviteFetchAsyncAction;
+  | InviteErrorFetchingAction;

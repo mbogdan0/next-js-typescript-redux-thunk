@@ -2,7 +2,7 @@ import React from 'react';
 import { NextPage } from 'next';
 import { Invite } from '../containers/invite';
 import { withRedux } from '../redux/with-redux';
-import { inviteFetchAsync } from '../containers/invite/redux/actions';
+import { thunkFetchInvites } from '../containers/invite/redux/thunk-actions';
 
 const IndexPage: NextPage = () => {
   return (
@@ -13,13 +13,10 @@ const IndexPage: NextPage = () => {
   );
 };
 
-IndexPage.getInitialProps = async ({ reduxStore, runSaga }: any) => {
+IndexPage.getInitialProps = async ({ reduxStore }: any) => {
   const { dispatch } = reduxStore;
-
-  dispatch(inviteFetchAsync());
-  await runSaga.toPromise();
-  return {};
+  await dispatch(thunkFetchInvites());
+  return { reduxStore };
 };
-
 
 export default withRedux(IndexPage);
