@@ -5,3 +5,5 @@
 - redux-thunk
 - SSR
 - React
+- styled-components
+- theming styled-components
