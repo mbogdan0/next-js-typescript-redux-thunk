@@ -93,182 +93,6 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
-/***/ "../next-server/lib/utils":
-/*!*****************************************************!*\
-  !*** external "next/dist/next-server/lib/utils.js" ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("next/dist/next-server/lib/utils.js");
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    "default": obj
-  };
-}
-
-module.exports = _interopRequireDefault;
-
-/***/ }),
-
-/***/ "./node_modules/next/app.js":
-/*!**********************************!*\
-  !*** ./node_modules/next/app.js ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! ./dist/pages/_app */ "./node_modules/next/dist/pages/_app.js")
-
-
-/***/ }),
-
-/***/ "./node_modules/next/dist/pages/_app.js":
-/*!**********************************************!*\
-  !*** ./node_modules/next/dist/pages/_app.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.Container = Container;
-exports.createUrl = createUrl;
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(/*! react */ "react"));
-
-var _utils = __webpack_require__(/*! ../next-server/lib/utils */ "../next-server/lib/utils");
-
-exports.AppInitialProps = _utils.AppInitialProps;
-/**
-* `App` component is used for initialize of pages. It allows for overwriting and full control of the `page` initialization.
-* This allows for keeping state between navigation, custom error handling, injecting additional data.
-*/
-
-async function appGetInitialProps(_ref) {
-  var {
-    Component,
-    ctx
-  } = _ref;
-  var pageProps = await (0, _utils.loadGetInitialProps)(Component, ctx);
-  return {
-    pageProps
-  };
-}
-
-class App extends _react.default.Component {
-  // Kept here for backwards compatibility.
-  // When someone ended App they could call `super.componentDidCatch`.
-  // @deprecated This method is no longer needed. Errors are caught at the top level
-  componentDidCatch(error, _errorInfo) {
-    throw error;
-  }
-
-  render() {
-    var {
-      router,
-      Component,
-      pageProps,
-      __N_SSG,
-      __N_SSP
-    } = this.props;
-    return _react.default.createElement(Component, Object.assign({}, pageProps, // we don't add the legacy URL prop if it's using non-legacy
-    // methods like getStaticProps and getServerSideProps
-    !(__N_SSG || __N_SSP) ? {
-      url: createUrl(router)
-    } : {}));
-  }
-
-}
-
-exports.default = App;
-App.origGetInitialProps = appGetInitialProps;
-App.getInitialProps = appGetInitialProps;
-var warnContainer;
-var warnUrl;
-
-if (true) {
-  warnContainer = (0, _utils.execOnce)(() => {
-    console.warn("Warning: the `Container` in `_app` has been deprecated and should be removed. https://err.sh/zeit/next.js/app-container-deprecated");
-  });
-  warnUrl = (0, _utils.execOnce)(() => {
-    console.error("Warning: the 'url' property is deprecated. https://err.sh/zeit/next.js/url-deprecated");
-  });
-} // @deprecated noop for now until removal
-
-
-function Container(p) {
-  if (true) warnContainer();
-  return p.children;
-}
-
-function createUrl(router) {
-  // This is to make sure we don't references the router object at call time
-  var {
-    pathname,
-    asPath,
-    query
-  } = router;
-  return {
-    get query() {
-      if (true) warnUrl();
-      return query;
-    },
-
-    get pathname() {
-      if (true) warnUrl();
-      return pathname;
-    },
-
-    get asPath() {
-      if (true) warnUrl();
-      return asPath;
-    },
-
-    back: () => {
-      if (true) warnUrl();
-      router.back();
-    },
-    push: (url, as) => {
-      if (true) warnUrl();
-      return router.push(url, as);
-    },
-    pushTo: (href, as) => {
-      if (true) warnUrl();
-      var pushRoute = as ? href : '';
-      var pushUrl = as || href;
-      return router.push(pushRoute, pushUrl);
-    },
-    replace: (url, as) => {
-      if (true) warnUrl();
-      return router.replace(url, as);
-    },
-    replaceTo: (href, as) => {
-      if (true) warnUrl();
-      var replaceRoute = as ? href : '';
-      var replaceUrl = as || href;
-      return router.replace(replaceRoute, replaceUrl);
-    }
-  };
-}
-
-/***/ }),
-
 /***/ "./src/containers/invite/Invite.tsx":
 /*!******************************************!*\
   !*** ./src/containers/invite/Invite.tsx ***!
@@ -295,8 +119,7 @@ const Invite = () => {
     add,
     loading,
     data,
-    error,
-    load
+    error
   } = Object(_hooks_useInvite__WEBPACK_IMPORTED_MODULE_1__["useInvite"])();
 
   const onSave = () => {
@@ -310,35 +133,35 @@ const Invite = () => {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 18,
+      lineNumber: 16,
       columnNumber: 5
     }
   }, "invite", __jsx("div", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 20,
+      lineNumber: 18,
       columnNumber: 7
     }
   }, __jsx("div", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 21,
+      lineNumber: 19,
       columnNumber: 9
     }
   }, "LOADING: ", JSON.stringify(loading)), __jsx("div", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 22,
+      lineNumber: 20,
       columnNumber: 9
     }
   }, "DATA: ", JSON.stringify(data)), __jsx("div", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 23,
+      lineNumber: 21,
       columnNumber: 9
     }
   }, "ERROR: ", JSON.stringify(error)), __jsx("textarea", {
@@ -346,7 +169,7 @@ const Invite = () => {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 24,
+      lineNumber: 22,
       columnNumber: 9
     }
   }), __jsx("button", {
@@ -355,7 +178,7 @@ const Invite = () => {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 25,
+      lineNumber: 23,
       columnNumber: 9
     }
   }, "Create")));
@@ -375,7 +198,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useInvite", function() { return useInvite; });
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "react-redux");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../redux/actions */ "./src/containers/invite/redux/actions.ts");
+/* harmony import */ var _redux_thunk_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../redux/thunk-actions */ "./src/containers/invite/redux/thunk-actions.ts");
 
 
 const useInvite = () => {
@@ -386,27 +209,12 @@ const useInvite = () => {
   } = Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["useSelector"])(state => state.invites);
   const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["useDispatch"])();
 
-  const dispatchAction = action => dispatch(action);
-
   const add = payload => {
-    const list = [...data, payload];
-    setTimeout(() => {
-      dispatchAction(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_1__["inviteFillFetching"])(list));
-    }, 1000);
+    dispatch(Object(_redux_thunk_actions__WEBPACK_IMPORTED_MODULE_1__["thunkAddInvite"])(payload));
   };
 
   const load = () => {
-    dispatchAction(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_1__["inviteStartFetching"])());
-    setTimeout(() => {
-      const payload = [{
-        text: 'hi honey',
-        id: 1
-      }, {
-        text: 'oh honey',
-        id: 2
-      }];
-      dispatchAction(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_1__["inviteFillFetching"])(payload));
-    }, 1000);
+    dispatch(Object(_redux_thunk_actions__WEBPACK_IMPORTED_MODULE_1__["thunkFetchInvites"])());
   };
 
   return {
@@ -436,40 +244,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/containers/invite/redux/actions.ts":
-/*!************************************************!*\
-  !*** ./src/containers/invite/redux/actions.ts ***!
-  \************************************************/
-/*! exports provided: inviteStartFetching, inviteFillFetching, inviteErrorFetching */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inviteStartFetching", function() { return inviteStartFetching; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inviteFillFetching", function() { return inviteFillFetching; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inviteErrorFetching", function() { return inviteErrorFetching; });
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./src/containers/invite/redux/types.ts");
-
-function inviteStartFetching() {
-  return {
-    type: _types__WEBPACK_IMPORTED_MODULE_0__["INVITE_START_FETCHING"]
-  };
-}
-function inviteFillFetching(data) {
-  return {
-    type: _types__WEBPACK_IMPORTED_MODULE_0__["INVITE_FILL"],
-    payload: data
-  };
-}
-function inviteErrorFetching(data) {
-  return {
-    type: _types__WEBPACK_IMPORTED_MODULE_0__["INVITE_ERROR_FETCHING"],
-    payload: data
-  };
-}
-
-/***/ }),
-
 /***/ "./src/containers/invite/redux/reducer.ts":
 /*!************************************************!*\
   !*** ./src/containers/invite/redux/reducer.ts ***!
@@ -491,7 +265,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 const initialState = {
   data: [],
   loading: false,
-  error: null
+  error: null,
+  loadingAdd: false,
+  errorAdd: null
 };
 const invitesReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -514,6 +290,25 @@ const invitesReducer = (state = initialState, action) => {
         error: action.payload
       });
 
+    case _types__WEBPACK_IMPORTED_MODULE_0__["INVITE_ADD_FETCHING"]:
+      return _objectSpread({}, state, {
+        loadingAdd: true,
+        errorAdd: null
+      });
+
+    case _types__WEBPACK_IMPORTED_MODULE_0__["INVITE_ADD_FILL"]:
+      return _objectSpread({}, state, {
+        loadingAdd: false,
+        data: action.payload,
+        errorAdd: null
+      });
+
+    case _types__WEBPACK_IMPORTED_MODULE_0__["INVITE_ADD_ERROR"]:
+      return _objectSpread({}, state, {
+        loadingAdd: false,
+        errorAdd: action.payload
+      });
+
     default:
       // eslint-disable-next-line no-case-declarations,@typescript-eslint/no-unused-vars
       const x = action;
@@ -528,25 +323,55 @@ const invitesReducer = (state = initialState, action) => {
 /*!******************************************************!*\
   !*** ./src/containers/invite/redux/thunk-actions.ts ***!
   \******************************************************/
-/*! exports provided: thunkFetchInvites */
+/*! exports provided: thunkFetchInvites, thunkAddInvite */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "thunkFetchInvites", function() { return thunkFetchInvites; });
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./src/containers/invite/redux/actions.ts");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "thunkAddInvite", function() { return thunkAddInvite; });
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./src/containers/invite/redux/types.ts");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services */ "./src/containers/invite/services/index.ts");
 
 
 const thunkFetchInvites = () => {
   return async dispatch => {
-    dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_0__["inviteStartFetching"])());
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_0__["INVITE_START_FETCHING"]
+    });
 
     try {
       const result = await Object(_services__WEBPACK_IMPORTED_MODULE_1__["fetchAllInvites"])();
-      dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_0__["inviteFillFetching"])(result.payload));
+      dispatch({
+        type: _types__WEBPACK_IMPORTED_MODULE_0__["INVITE_FILL"],
+        payload: result.payload
+      });
     } catch (e) {
-      dispatch(Object(_actions__WEBPACK_IMPORTED_MODULE_0__["inviteErrorFetching"])(e.toString()));
+      dispatch({
+        type: _types__WEBPACK_IMPORTED_MODULE_0__["INVITE_ERROR_FETCHING"],
+        payload: e.toString()
+      });
+    }
+  };
+};
+const thunkAddInvite = payload => {
+  return async dispatch => {
+    dispatch({
+      type: _types__WEBPACK_IMPORTED_MODULE_0__["INVITE_ADD_FETCHING"],
+      payload
+    });
+
+    try {
+      const result = await Object(_services__WEBPACK_IMPORTED_MODULE_1__["fetchAddInvite"])();
+      dispatch({
+        type: _types__WEBPACK_IMPORTED_MODULE_0__["INVITE_ADD_FILL"],
+        payload: result.payload
+      });
+    } catch (e) {
+      dispatch({
+        type: _types__WEBPACK_IMPORTED_MODULE_0__["INVITE_ADD_ERROR"],
+        payload: e.toString()
+      });
     }
   };
 };
@@ -557,7 +382,7 @@ const thunkFetchInvites = () => {
 /*!**********************************************!*\
   !*** ./src/containers/invite/redux/types.ts ***!
   \**********************************************/
-/*! exports provided: INVITE_START_FETCHING, INVITE_FILL, INVITE_ERROR_FETCHING */
+/*! exports provided: INVITE_START_FETCHING, INVITE_FILL, INVITE_ERROR_FETCHING, INVITE_ADD_FETCHING, INVITE_ADD_FILL, INVITE_ADD_ERROR */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -565,9 +390,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INVITE_START_FETCHING", function() { return INVITE_START_FETCHING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INVITE_FILL", function() { return INVITE_FILL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INVITE_ERROR_FETCHING", function() { return INVITE_ERROR_FETCHING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INVITE_ADD_FETCHING", function() { return INVITE_ADD_FETCHING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INVITE_ADD_FILL", function() { return INVITE_ADD_FILL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INVITE_ADD_ERROR", function() { return INVITE_ADD_ERROR; });
 const INVITE_START_FETCHING = 'INVITE_START_FETCHING';
 const INVITE_FILL = 'INVITE_FILL';
 const INVITE_ERROR_FETCHING = 'INVITE_ERROR_FETCHING';
+const INVITE_ADD_FETCHING = 'INVITE_ADD_FETCHING';
+const INVITE_ADD_FILL = 'INVITE_ADD_FILL';
+const INVITE_ADD_ERROR = 'INVITE_ADD_ERROR';
 
 /***/ }),
 
@@ -575,12 +406,13 @@ const INVITE_ERROR_FETCHING = 'INVITE_ERROR_FETCHING';
 /*!*************************************************!*\
   !*** ./src/containers/invite/services/index.ts ***!
   \*************************************************/
-/*! exports provided: fetchAllInvites */
+/*! exports provided: fetchAllInvites, fetchAddInvite */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAllInvites", function() { return fetchAllInvites; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAddInvite", function() { return fetchAddInvite; });
 function fetchAllInvites() {
   return new Promise(resolve => {
     const payload = [{
@@ -592,6 +424,30 @@ function fetchAllInvites() {
     }, {
       text: 'I am in your town',
       id: 3
+    }];
+    setTimeout(() => {
+      resolve({
+        payload,
+        success: true,
+        error: null
+      });
+    }, 550);
+  });
+}
+function fetchAddInvite() {
+  return new Promise(resolve => {
+    const payload = [{
+      text: 'hi honey',
+      id: 1
+    }, {
+      text: 'oh honey',
+      id: 2
+    }, {
+      text: 'I am in your town',
+      id: 3
+    }, {
+      text: 'aaa',
+      id: 4
     }];
     setTimeout(() => {
       resolve({
@@ -631,36 +487,33 @@ const IndexPage = () => {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 9,
+      lineNumber: 10,
       columnNumber: 5
     }
   }, __jsx("h1", {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 10,
+      lineNumber: 11,
       columnNumber: 7
     }
   }, "OK"), __jsx(_containers_invite__WEBPACK_IMPORTED_MODULE_1__["Invite"], {
     __self: undefined,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 11,
+      lineNumber: 12,
       columnNumber: 7
     }
   }));
 };
 
 IndexPage.getInitialProps = async ({
-  reduxStore
-}) => {
-  const {
+  reduxStore: {
     dispatch
-  } = reduxStore;
+  }
+}) => {
   await dispatch(Object(_containers_invite_redux_thunk_actions__WEBPACK_IMPORTED_MODULE_3__["thunkFetchInvites"])());
-  return {
-    reduxStore
-  };
+  return {};
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(_redux_with_redux__WEBPACK_IMPORTED_MODULE_2__["withRedux"])(IndexPage));
@@ -671,21 +524,16 @@ IndexPage.getInitialProps = async ({
 /*!*********************************!*\
   !*** ./src/redux/middleware.ts ***!
   \*********************************/
-/*! exports provided: middleware, sagaMiddleware */
+/*! exports provided: middleware */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "middleware", function() { return middleware; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sagaMiddleware", function() { return sagaMiddleware; });
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux-thunk */ "redux-thunk");
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(redux_thunk__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var redux_saga__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-saga */ "redux-saga");
-/* harmony import */ var redux_saga__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(redux_saga__WEBPACK_IMPORTED_MODULE_1__);
 
-
-const sagaMiddleware = redux_saga__WEBPACK_IMPORTED_MODULE_1___default()();
-const middleware = [sagaMiddleware, redux_thunk__WEBPACK_IMPORTED_MODULE_0___default.a];
+const middleware = [redux_thunk__WEBPACK_IMPORTED_MODULE_0___default.a];
 
 
 /***/ }),
@@ -752,9 +600,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "react-redux");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var next_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/app */ "./node_modules/next/app.js");
-/* harmony import */ var next_app__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_app__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store */ "./src/redux/store.ts");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store */ "./src/redux/store.ts");
 var _jsxFileName = "/Users/bogdan/Downloads/next-blogdan/src/redux/with-redux.tsx";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
@@ -773,16 +619,15 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 
 
-
 let reduxStore;
 
-function getOrInitializeStore(initialState) {
+function getOrInitializeStore(initialState = {}) {
   if (true) {
-    return Object(_store__WEBPACK_IMPORTED_MODULE_3__["initializeStore"])(initialState);
+    return Object(_store__WEBPACK_IMPORTED_MODULE_2__["initializeStore"])(initialState);
   }
 
   if (!reduxStore) {
-    reduxStore = Object(_store__WEBPACK_IMPORTED_MODULE_3__["initializeStore"])(initialState);
+    reduxStore = Object(_store__WEBPACK_IMPORTED_MODULE_2__["initializeStore"])(initialState);
   }
 
   return reduxStore;
@@ -803,27 +648,18 @@ const withRedux = (PageComponent, {
       __self: undefined,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 21,
+        lineNumber: 28,
         columnNumber: 7
       }
     }, __jsx(PageComponent, _extends({}, props, {
       __self: undefined,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 22,
+        lineNumber: 29,
         columnNumber: 9
       }
     })));
-  }; // Make sure people don't use this HOC on _app.js level
-
-
-  if (true) {
-    const isAppHoc = PageComponent === next_app__WEBPACK_IMPORTED_MODULE_2___default.a || PageComponent.prototype instanceof next_app__WEBPACK_IMPORTED_MODULE_2___default.a;
-
-    if (isAppHoc) {
-      throw new Error('The withRedux HOC only works with PageComponents');
-    }
-  } // Set the correct displayName in development
+  }; // Set the correct displayName in development
 
 
   if (true) {
@@ -833,12 +669,12 @@ const withRedux = (PageComponent, {
 
   if (ssr || PageComponent.getInitialProps) {
     WithRedux.getInitialProps = async context => {
-      const reduxStore = getOrInitializeStore(); // Provide the store to getInitialProps of pages
+      const store = getOrInitializeStore(); // eslint-disable-next-line
 
-      context.reduxStore = reduxStore;
+      context.reduxStore = store;
       const pageProps = typeof PageComponent.getInitialProps === 'function' ? await PageComponent.getInitialProps(context) : {};
       return _objectSpread({}, pageProps, {
-        initialReduxState: reduxStore.getState()
+        initialReduxState: store.getState()
       });
     };
   }
@@ -901,17 +737,6 @@ module.exports = require("redux");
 /***/ (function(module, exports) {
 
 module.exports = require("redux-devtools-extension/developmentOnly");
-
-/***/ }),
-
-/***/ "redux-saga":
-/*!*****************************!*\
-  !*** external "redux-saga" ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("redux-saga");
 
 /***/ }),
 

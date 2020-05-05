@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import { Invite } from '../containers/invite';
 import { withRedux } from '../redux/with-redux';
 import { thunkFetchInvites } from '../containers/invite/redux/thunk-actions';
+import { ContextProps } from '../types/next-page-props';
 
 const IndexPage: NextPage = () => {
   return (
@@ -13,10 +14,9 @@ const IndexPage: NextPage = () => {
   );
 };
 
-IndexPage.getInitialProps = async ({ reduxStore }: any) => {
-  const { dispatch } = reduxStore;
+IndexPage.getInitialProps = async ({ reduxStore: { dispatch } }: ContextProps) => {
   await dispatch(thunkFetchInvites());
-  return { reduxStore };
+  return {};
 };
 
 export default withRedux(IndexPage);

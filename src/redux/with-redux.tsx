@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
+import { NextPage } from 'next';
+import { NextPageContext } from 'next/dist/next-server/lib/utils';
 import { Provider } from 'react-redux';
-import App from 'next/app';
 import { initializeStore } from './store';
+import { AppState } from './root-reducer';
+
 
 let reduxStore;
-function getOrInitializeStore(initialState?) {
+function getOrInitializeStore(initialState = {}) {
   if (typeof window === 'undefined') {
     return initializeStore(initialState);
   }
@@ -14,8 +17,12 @@ function getOrInitializeStore(initialState?) {
   return reduxStore;
 }
 
-export const withRedux = (PageComponent, { ssr = true } = {}) => {
-  const WithRedux = ({ initialReduxState, ...props }: any) => {
+type WithReduxProps = {
+  initialReduxState: AppState;
+}
+
+export const withRedux = (PageComponent: NextPage, { ssr = true } = {}) => {
+  const WithRedux = ({ initialReduxState, ...props }: WithReduxProps): ReactElement => {
     const store = getOrInitializeStore(initialReduxState);
     return (
       <Provider store={store}>
@@ -24,14 +31,6 @@ export const withRedux = (PageComponent, { ssr = true } = {}) => {
     );
   };
 
-  // Make sure people don't use this HOC on _app.js level
-  if (process.env.NODE_ENV !== 'production') {
-    const isAppHoc = PageComponent === App || PageComponent.prototype instanceof App;
-    if (isAppHoc) {
-      throw new Error('The withRedux HOC only works with PageComponents');
-    }
-  }
-
   // Set the correct displayName in development
   if (process.env.NODE_ENV !== 'production') {
     const displayName = PageComponent.displayName || PageComponent.name || 'Component';
@@ -39,17 +38,16 @@ export const withRedux = (PageComponent, { ssr = true } = {}) => {
   }
 
   if (ssr || PageComponent.getInitialProps) {
-    WithRedux.getInitialProps = async (context: any) => {
-      const reduxStore = getOrInitializeStore();
-
-      // Provide the store to getInitialProps of pages
-      context.reduxStore = reduxStore;
+    WithRedux.getInitialProps = async (context: NextPageContext & {reduxStore: any}) => {
+      const store: any = getOrInitializeStore();
+      // eslint-disable-next-line
+      context.reduxStore = store;
       const pageProps = typeof PageComponent.getInitialProps === 'function'
         ? await PageComponent.getInitialProps(context)
         : {};
       return {
         ...pageProps,
-        initialReduxState: reduxStore.getState(),
+        initialReduxState: store.getState(),
       };
     };
   }

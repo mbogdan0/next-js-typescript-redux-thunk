@@ -1,3 +1,5 @@
+import { AppState } from '../../../redux/root-reducer';
+
 export type Invite = {
   id: number;
   text: string;
@@ -20,8 +22,29 @@ export type InviteErrorFetchingAction = {
   payload: string;
 };
 
+export const INVITE_ADD_FETCHING = 'INVITE_ADD_FETCHING';
+export type InviteAddFetchingAction = {
+  type: typeof INVITE_ADD_FETCHING;
+  payload: Invite;
+};
+
+export const INVITE_ADD_FILL = 'INVITE_ADD_FILL';
+export type InviteAddFillAction = {
+  type: typeof INVITE_ADD_FILL;
+  payload: Invite[];
+};
+
+export const INVITE_ADD_ERROR = 'INVITE_ADD_ERROR';
+export type InviteAddErrorAction = {
+  type: typeof INVITE_ADD_ERROR;
+  payload: string;
+};
+
 
 export type InvitesActionTypes =
   | InviteStartFetchingAction
   | InviteFillAction
-  | InviteErrorFetchingAction;
+  | InviteErrorFetchingAction
+  | InviteAddFetchingAction
+  | InviteAddFillAction
+  | InviteAddErrorAction;

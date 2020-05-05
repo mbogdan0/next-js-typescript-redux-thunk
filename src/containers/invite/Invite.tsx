@@ -1,12 +1,10 @@
-import React, {
-  ChangeEvent, FC, useState, useEffect,
-} from 'react';
+import React, { ChangeEvent, FC, useState } from 'react';
 import { useInvite } from './hooks/useInvite';
 
 export const Invite: FC = () => {
   const [text, setText] = useState('');
   const {
-    add, loading, data, error, load,
+    add, loading, data, error,
   } = useInvite();
   const onSave = () => {
     add({
