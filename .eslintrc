@@ -15,7 +15,9 @@
     }
   },
   "rules": {
+    "jsx-a11y/anchor-is-valid": "off",
     "@typescript-eslint/no-empty-interface": "off",
+    "implicit-arrow-linebreak": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "react/jsx-one-expression-per-line": "off",
     "no-unused-vars": "warn",

@@ -5,7 +5,9 @@ import {
   INVITE_FILL,
   INVITE_ERROR_FETCHING,
   INVITE_ADD_FETCHING,
-  Invite, INVITE_ADD_FILL, INVITE_ADD_ERROR
+  Invite,
+  INVITE_ADD_FILL,
+  INVITE_ADD_ERROR,
 } from './types';
 import { AppState } from '../../../redux/root-reducer';
 import { fetchAllInvites, fetchAddInvite } from '../services';

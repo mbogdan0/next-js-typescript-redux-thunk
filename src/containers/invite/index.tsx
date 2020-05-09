@@ -16,8 +16,12 @@ export const Invite: FC = () => {
     <div>
       invite
       <div>
+        {data.map((item) => (
+          <div>
+            <b>{item.id}</b>: {item.text}
+          </div>
+        ))}
         <div>LOADING: {JSON.stringify(loading)}</div>
-        <div>DATA: {JSON.stringify(data)}</div>
         <div>ERROR: {JSON.stringify(error)}</div>
         <textarea onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value)} />
         <button type="button" onClick={onSave}>

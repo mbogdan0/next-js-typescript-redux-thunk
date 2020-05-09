@@ -1,0 +1,9 @@
+myNextApplication:
+  component: serverless-next.js
+  inputs:
+    memory:
+      defaultLambda: 512
+      apiLambda: 512
+      timeout:
+        defaultLambda: 10
+        apiLambda: 4

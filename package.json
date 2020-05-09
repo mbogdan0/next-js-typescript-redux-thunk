@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev:infra": "LOCAL_DYNAMO_DB_ENDPOINT=\"http://localhost:8000\" npm run infra",
+    "dev1": "BUNDLE_AWS_SDK=1 AWS_ACCESS_KEY_ID=1 AWS_SECRET_ACCESS_KEY=1 LOCAL_DYNAMO_DB_ENDPOINT=\"http://localhost:8000\" next dev",
+    "infra": "node infrastructure/provisionTable",
     "dev": "next",
     "build": "next build",
     "start": "next start",
@@ -17,6 +20,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.673.0",
     "next": "^9.3.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -32,11 +36,13 @@
     "@types/react-redux": "^7.1.7",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "babel-plugin-styled-components": "^1.10.7",
+    "dotenv": "^8.2.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.19.0",
     "prettier-eslint-cli": "^5.0.0",
+    "serverless-next.js": "^1.11.5",
     "typescript": "^3.8.3",
     "webpack": "^4.43.0"
   }

@@ -1,4 +1,3 @@
-import { AppState } from '../../../redux/root-reducer';
 
 export type Invite = {
   id: number;
