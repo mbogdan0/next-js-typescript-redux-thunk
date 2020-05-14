@@ -6,7 +6,7 @@ export const greenTheme = {
   },
   colors: {
     ...commonTheme.colors,
-    background: '#CADDC8',
+    background: '#CEE1CC',
   },
 };
 

@@ -1,11 +1,11 @@
 export type Entry = {
-  id: number;
-  slug: string;
+  slugId: string;
   title: string;
-  shortAsHtml?: string;
   short: string;
-  messageAsHtml?: string;
   message: string;
   date: string;
   tags: string[];
+  seoTitle: string;
+  seoDescription: string;
+  seoTags: string;
 };

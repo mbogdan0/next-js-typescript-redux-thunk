@@ -6,4 +6,4 @@ myNextApplication:
       apiLambda: 512
       timeout:
         defaultLambda: 10
-        apiLambda: 4
+        apiLambda: 5

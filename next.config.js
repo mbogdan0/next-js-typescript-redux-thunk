@@ -1,44 +1,39 @@
 const webpack = require('webpack');
 const { PHASE_DEVELOPMENT_SERVER } = require('next/constants');
+require('dotenv').config();
 
 module.exports = (phase, { defaultConfig }) => {
-  if (phase === PHASE_DEVELOPMENT_SERVER) {
-    return { // dev
-      env: {
-        TABLE_NAME: 'Example1',
-        VAR: 'dev' // {process.env.VAR} example of usage
-      },
-      webpack(config, options) {
+
+  const env = {
+    DYNAMODB_REGION: process.env.DYNAMODB_REGION,
+    LOCAL_DYNAMO_DB_ENDPOINT: process.env.LOCAL_DYNAMO_DB_ENDPOINT,
+    AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+    AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
+    PASSWORD_TO_ADD_ENTRIES: process.env.PASSWORD_TO_ADD_ENTRIES,
+    API_ENDPOINT: 'https://d3bzrckpr9a7au.cloudfront.net' // replace to domain
+  };
+  const env_developments = {
+    ...env,
+    AWS_ACCESS_KEY_ID: '1',
+    AWS_SECRET_ACCESS_KEY: '1',
+    API_ENDPOINT: 'http://localhost:3000',
+  };
+  const IS_DEV = phase === PHASE_DEVELOPMENT_SERVER;
+
+  return { // dev
+    env: IS_DEV ? env_developments : env,
+    target: IS_DEV ? 'server' : 'serverless',
+    webpack(config, options) {
+      if (!IS_DEV) { // prod only
+        config.externals = config.externals || [];
+        config.externals.push({ "aws-sdk": "aws-sdk" });
         config.plugins.push(
           new webpack.optimize.LimitChunkCountPlugin({
             maxChunks: 1,
           }),
         );
-        return config;
       }
-    }
-  }
-
-  if (!process.env.BUNDLE_AWS_SDK) {
-    config.externals = config.externals || [];
-    config.externals.push({ "aws-sdk": "aws-sdk" });
-  } else {
-    console.warn("Bundling aws-sdk. Only doing this in development mode");
-  }
-
-  return { // prod
-    target: 'serverless',
-    env: {
-      TABLE_NAME: 'Example1',
-      VAR: 'prod'
-    },
-    webpack(config, options) {
-      config.plugins.push(
-        new webpack.optimize.LimitChunkCountPlugin({
-          maxChunks: 1,
-        }),
-      );
       return config;
     }
-  }
-}
+  };
+};

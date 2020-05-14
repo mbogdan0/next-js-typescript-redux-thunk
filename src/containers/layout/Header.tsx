@@ -9,11 +9,11 @@ export const Div = styled.div`
   font-weight: bold;
   ${mq.mobile} {
     font-size: 51px;
-    margin: 14vh 0 14vh;
+    margin: 9vh 0 14vh;
   }
   ${mq.tablet} {
     font-size: 64px;
-    margin: 14vh 0 13vh;
+    margin: 11vh 0 13vh;
   }
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.33);
   .cl1 {

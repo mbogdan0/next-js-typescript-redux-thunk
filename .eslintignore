@@ -1,2 +1,4 @@
 next.config.js
-src/infrastructure
+dynamodb/provision-table.js
+src/data
+src/pages/api

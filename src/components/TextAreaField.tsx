@@ -1,6 +1,6 @@
-import React, { ChangeEvent, FC, useState } from 'react';
-import styled from 'styled-components';
+import React, { ChangeEvent, useState, forwardRef } from 'react';
 import { TextArea } from '../styled/components/TextArea';
+import { DivLabelField } from '../styled/components/DivLabelField';
 
 
 type Props = {
@@ -8,41 +8,36 @@ type Props = {
   height?: number;
   change: (string) => void;
   onChange?: never;
+  defaultValue?: string;
   [x: string]: unknown;
 };
 
-export const TextAreaField: FC<Props> = ({ label, change, height = 400, ...props }: Props) => {
-  const [len, setLen] = useState(0);
-  const changeVal = (e: ChangeEvent<HTMLInputElement>) => {
+export const TextAreaField = forwardRef<HTMLTextAreaElement, Props>((refProps, ref) => {
+  const {
+    height = 500,
+    defaultValue,
+    label,
+    change,
+    ...props
+  } = refProps;
+  const [len, setLen] = useState(defaultValue?.length || 0);
+  const changeVal = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setLen(e.target.value.length);
     change(e.target.value);
   };
   return (
-    <Div>
+    <DivLabelField>
       <div className="label">
         <span className="title">{label}</span>
         <span className="len">{len}</span>
       </div>
       <TextArea
+        ref={ref}
+        defaultValue={defaultValue || ''}
         onChange={changeVal}
         height={height}
         {...props}
       />
-    </Div>
+    </DivLabelField>
   );
-};
-
-const Div = styled.div`
-  margin: 14px 0 28px;
-  font-size: 1.05em;
-  color: ${({ theme }) => theme.colors.inputLabelColor};
-  .label {
-    margin: 0 2px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    .len {
-      font-size: .9em;
-    }
-  }
-`;
+});

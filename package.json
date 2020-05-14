@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:infra": "LOCAL_DYNAMO_DB_ENDPOINT=\"http://localhost:8000\" npm run infra",
-    "dev1": "BUNDLE_AWS_SDK=1 AWS_ACCESS_KEY_ID=1 AWS_SECRET_ACCESS_KEY=1 LOCAL_DYNAMO_DB_ENDPOINT=\"http://localhost:8000\" next dev",
-    "infra": "node infrastructure/provisionTable",
+    "aws:push:prod": "serverless",
+    "aws:dev:db": "node dynamodb/provision-table.js",
+    "aws:prod:db": "cross-env IS_PROD=true node dynamodb/provision-table.js",
     "dev": "next",
     "build": "next build",
     "start": "next start",
@@ -21,6 +21,7 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.673.0",
+    "axios": "^0.19.2",
     "next": "^9.3.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -28,14 +29,18 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "styled-components": "^5.1.0"
+    "styled-components": "^5.1.0",
+    "universal-cookie": "^4.0.3",
+    "uuid": "^8.0.0"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/node": "^13.13.4",
     "@types/react": "^16.9.34",
     "@types/react-redux": "^7.1.7",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "babel-plugin-styled-components": "^1.10.7",
+    "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-import": "^2.20.2",

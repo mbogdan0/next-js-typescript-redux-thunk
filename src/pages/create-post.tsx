@@ -9,9 +9,6 @@ import { wrapPage } from '../utils/wrapPage';
 const CreatePost: NextPage = () => {
   return (
     <Layout hasHeader={false}>
-      <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Cuprum:wght@400;700&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
-      </Head>
       <CreateForm />
       <Link href="/">
         <a>back</a>
@@ -21,8 +18,8 @@ const CreatePost: NextPage = () => {
 };
 
 
-// CreatePost.getInitialProps = async ({ reduxStore: { dispatch } }: ContextProps) => {
-//   return {};
-// };
+CreatePost.getInitialProps = async () => {
+  return {};
+};
 
 export default wrapPage(CreatePost);

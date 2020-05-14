@@ -6,7 +6,7 @@ export const greyTheme = {
   },
   colors: {
     ...commonTheme.colors,
-    background: '#DDDDDD',
+    background: '#F0F0F0',
   },
 };
 

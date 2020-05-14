@@ -6,7 +6,7 @@ export const redTheme = {
   },
   colors: {
     ...commonTheme.colors,
-    background: '#DDC8C8',
+    background: '#E3CDCD',
   },
 };
 
